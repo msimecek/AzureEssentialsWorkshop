@@ -81,7 +81,7 @@ Získáte odpověď:
 
 Nyní posuneme své snažení na vyšší úroveň. Služba LUIS.ai je součástí Microsoft Cognitive Services a umožňuje vytvoření vlastního modelu pro porozumění lidské řeči (ve formě psaného textu). Pracuje s tzv. intenty a entitami.
 
-> **Intent** určuje **co** chceme dosáhnout.
+> **Intent** určuje, **co** chceme dosáhnout.
 >
 > **Entita** je objekt, s nímž pracujeme.
 >
