@@ -49,12 +49,12 @@ Jak se píše nad klíčem, může chvíli trvat, než bude aktivní. Kdybyste s
 
 ## 2. Tvorba Function App
 
-O procesování  obrázků se bude starat Azure Function. To je rozdíl oproti minulé hodině, kdy přesouváme zdrojový kód mimo svůj počítač a používáme tzv. "serverless" technologii.
+O procesování  obrázků se bude starat [Azure Function](https://azure.microsoft.com/en-us/services/functions/). To je rozdíl oproti minulé hodině, kdy přesouváme zdrojový kód mimo svůj počítač a používáme tzv. "serverless" technologii.
 
-1. Na portále Azure se vraťte do **Resource Group**, kde už máte Emotion API a klikněte **Add**.
+1. Na portále Azure se vraťte do **Resource Group**, kde už máte Emotion API, a klikněte **Add**.
 2. Vyhledejte **Function App**, vyberte tu od Microsoftu a klikněte **Create**.
 3. Vyplňte **unikání název** (stejně jako u webové aplikace).
-4. Zkontrolujte správný účet (Subscription) a Resource Group.
+4. Zkontrolujte správný účet (**Subscription**) a **Resource Group**.
 5. **Hosting Plan** ponechte jako **Consumption Plan**.
 6. **Location** změňte na **North Europe**.
 7. Volbu **Storage** ponechte na **Create New** s vygenerovaným názvem.
@@ -164,6 +164,43 @@ using System.Net;
 using System.Net.Http.Headers;
 ```
 
+Nakonec tedy bude celý kód funkce vypadat takto:
+
+```c#
+using System.Net;
+using System.Net.Http.Headers;
+
+public static void Run(Stream myBlob, string name, out string outputBlob, TraceWriter log)
+{
+    var emotions = GetEmotions(myBlob, log).Result;
+    
+    log.Info(emotions);
+    outputBlob = emotions;
+}
+
+static async Task<string> GetEmotions(Stream image, TraceWriter log) 
+{
+    using (var client = new HttpClient())
+    {
+        client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Environment.GetEnvironmentVariable("EmotionApiKey"));
+
+        var content = new StreamContent(image);
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+        var httpResponse = await client.PostAsync("https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize", content);
+ 
+        if (httpResponse.StatusCode == HttpStatusCode.OK){
+            return await httpResponse.Content.ReadAsStringAsync();
+        }
+        else {
+            log.Error(await httpResponse.Content.ReadAsStringAsync());
+        }
+    }
+
+    return null;
+}
+```
+
 Přestože je kód hotový, naše práce ještě neskončila. Když se podíváte podrobněji na kód, který tvoří volání Emotion API, uvidíte, že nastavujeme hlavičku `Ocp-Apim-Subscription-Key`. Její hodnota pochází z proměnné prostředí nazvané `EmotionApiKey`.
 
 ```c#
@@ -186,7 +223,7 @@ Pojďme teď EmotionApiKey nastavit:
 
 4. Přidejte novou hodnotu s názvem **EmotionApiKey**.
 
-5. Do políčka **Value** zkopírujte kód svého Emotion API.
+5. Do políčka **Value** zkopírujte kód svého Emotion API (který jste získali ve cvičení 1).
 
    ​	![](Images/14-emotionapikey-setting.png)
 

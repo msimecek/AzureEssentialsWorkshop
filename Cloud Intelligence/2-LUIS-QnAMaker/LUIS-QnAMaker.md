@@ -13,7 +13,7 @@ Klíčové kroky:
 
 ## 1. Nová služba v QnA Makeru
 
-QnA Maker slouží k rychlémua jednoduchému vytvoření API nad otázkami a odpověďmi ("často kladené dotazy" nebo "FAQ", "Q/A" na webových stránkách). My pro účely tohoto cvičení vytvoříme bota, který bude opdovídat na otázky kolem podpory Microsoft Azure.
+QnA Maker slouží k rychlému a jednoduchému vytvoření API nad otázkami a odpověďmi ("často kladené dotazy" nebo "FAQ", "Q/A" na webových stránkách). My pro účely tohoto cvičení vytvoříme službu, která bude odpovídat na otázky kolem podpory Microsoft Azure.
 
 Přejděte v prohlížeči na web [QnAMaker.ai](https://qnamaker.ai/).
 
@@ -29,7 +29,7 @@ Vyplňte formulář:
 * Do **FAQ URLs** vložte https://azure.microsoft.com/en-us/support/faq/.
   * všimněte si, že zdrojů může být i několik,
   * všimněte si, že zdrojem může být třeba i dokument Wordu.
-* Klikněte dole na **Create**.
+* Klikněte úplně dole na **Create**.
 
 QnA Maker nyní projde všechny zdroje, které jste zadali, a pokusí se v nich identifikovat otázky a odpovědi. Následně vyplní Knowledge Base.
 
