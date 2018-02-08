@@ -6,5 +6,5 @@ Tvoří jej vždy sled kroků, který pokrývá konkrétní oblast:
 
 * [Aplikační platforma Azure](Application%20Platform/README.md)
 * [Cloudová inteligence](Cloud%20Intelligence/README.md)
-* [Datové služby](Data%Services/README.md)
+* [Datové služby](Data%20Services/README.md)
 * [IoT](IoT/README.md)
